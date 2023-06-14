@@ -1,0 +1,24 @@
+{
+  "name": "udemyapi-project1",
+  "version": "1.0.0",
+  "description": "Udemy API project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickdibartolo1/UDEMYAPI-project1.git"
+  },
+  "author": "Nick DiBartolo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickdibartolo1/UDEMYAPI-project1/issues"
+  },
+  "homepage": "https://github.com/nickdibartolo1/UDEMYAPI-project1#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
