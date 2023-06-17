@@ -1,4 +1,6 @@
+const { FILE } = require('dns');
 let fs = require('fs');
+const { resolve } = require('path');
 const FILE_NAME = './assets/cities.json'
 
 //accessing the data from cities.json through fs
@@ -34,6 +36,7 @@ let citiesRepo = {
     // if it is an ID it will check ID, if name it will check name while also eliminiating case sensitivity, if valid they are set to true,
     //it is then resolved and sent to the client.
     search: (searchObject, resolve, reject) => {
+
         fs.readFile(FILE_NAME, (err, data) => {
             if (err) {
                 reject(err);
@@ -48,9 +51,75 @@ let citiesRepo = {
                 }
                 resolve(cities);
             }
-        })
+        });
 
+    },
+
+    //insert function to insert whatever JSON data desired.
+    insert: (newData, resolve, reject) => {
+
+        fs.readFile(FILE_NAME, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                let cities = JSON.parse(data);
+                cities.push(newData);
+                fs.writeFile(FILE_NAME, JSON.stringify(cities), (err) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(newData)
+                    }
+                });
+            }
+        });
+    },
+    // function for updating existing JSON data through locating its ID
+    update: (newData, id, resolve, reject) => {
+        fs.readFile(FILE_NAME, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                let cities = JSON.parse(data);
+                let city = cities.find(c => c.id == id);
+                if (city) {
+                    Object.assign(city, newData);
+                    fs.writeFile(FILE_NAME, JSON.stringify(cities), (err) => {
+                        if (err) {
+                            reject(err)
+                        }
+                        else {
+                            resolve(newData)
+                        }
+                    });
+                }
+            }
+        });
+    },
+    //delete function for deleting data by its ID.
+    delete: (id, resolve, reject) => {
+        fs.readFile(FILE_NAME, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let cities = JSON.parse(data);
+                let cityIndex = cities.findIndex(c => c.id == id);
+                if (cityIndex != -1) {
+                    cities.splice(cityIndex, 1);
+                    fs.writeFile(FILE_NAME, JSON.stringify(cities), (err) => {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            resolve(cityIndex)
+                        }
+                    });
+
+                }
+            }
+        });
     }
-};
+
+}
 
 module.exports = citiesRepo;
