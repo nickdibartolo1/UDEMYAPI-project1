@@ -8,8 +8,7 @@ let citiesRepo = require('./repos/citiesRepo');
 let router = express.Router();
 
 
-
-//create GET to return a list of cities
+//create GET to return a list of cities - Route Router
 //(getting data from a file (cities.json))
 router.get('/', (req, res, next) => {
     citiesRepo.get((data) => {
@@ -24,7 +23,31 @@ router.get('/', (req, res, next) => {
     })
 });
 
-//create the router that uses an id calling the getByID function
+
+//create the GET/search to search for cities for by ID or name - Search Router
+//search?id=n&name=str
+router.get('/search', (req, res, next) => {
+    let searchObject = {
+        "id": req.query.id,
+        "name": req.query.name
+    };
+
+
+    citiesRepo.search(searchObject, (data) => {
+        res.status(200).json({
+            "status": 200,
+            "statusText": "OK",
+            "message": "Search retrieved",
+            "data": data
+        });
+
+    }), (err) => {
+        next(err)
+    }
+});
+
+
+//create the router that uses an id calling the getByID function - getByID Router
 router.get('/:id', (req, res, next) => {
     citiesRepo.getByID(req.params.id, (data) => {
         if (data) {
@@ -46,6 +69,8 @@ router.get('/:id', (req, res, next) => {
                 }
             })
         }
+    }, (err) => {
+        next(err);
     })
 })
 
