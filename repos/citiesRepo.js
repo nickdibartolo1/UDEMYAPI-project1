@@ -17,7 +17,7 @@ let citiesRepo = {
         });
     },
 
-    // help find specific id in JSON file
+    // help find specific ID in JSON file
     getByID: (id, resolve, reject) => {
         fs.readFile(FILE_NAME, (err, data) => {
             if (err) {

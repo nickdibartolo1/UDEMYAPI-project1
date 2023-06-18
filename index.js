@@ -2,6 +2,7 @@
 let express = require('express')
 let app = express();
 let citiesRepo = require('./repos/citiesRepo');
+let CORS = require('cors')
 
 
 //express router object
@@ -10,7 +11,13 @@ let router = express.Router();
 //set up middleware to support JSON data parsing in request object
 app.use(express.json());
 
+// needed to allow CORS for all request
+app.use(CORS());
 
+
+
+
+// ROUTERS BELOW //
 //create GET to return a list of cities - Route Router
 //(getting data from a file (cities.json))
 router.get('/', (req, res, next) => {
