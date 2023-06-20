@@ -1,7 +1,7 @@
 const { FILE } = require('dns');
 let fs = require('fs');
 const { resolve } = require('path');
-const FILE_NAME = './assets/cities.json'
+const FILE_NAME = './assets/cities.json';
 
 //accessing the data from cities.json through fs
 let citiesRepo = {

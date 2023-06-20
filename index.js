@@ -107,7 +107,7 @@ router.put('/:id', (req, res, next) => {
         if (data) {
             //if we find a city we attempt to update data here
             citiesRepo.update(req.body, req.params.id, (data) => {
-                res.status(200).send({
+                res.status(201).send({
                     "status": 201,
                     "statusText": "OK",
                     "message": "city '" + req.params.id + "' updated",
